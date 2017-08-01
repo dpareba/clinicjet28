@@ -64,6 +64,25 @@
                 </div>
             </div>
 
+            <div class="form-group{{ $errors->has('medicalcouncil') ? ' has-error' : '' }}">
+                <label for="medicalcouncil" class="col-md-4 control-label">Select Medical Council</label>
+
+                <div class="col-md-6">
+                    <select required="" data-parsley-required-message="*Kindly Select a State Medical Council" name="medicalcouncil" id="medicalcouncil" class="js-example-basic-single form-control">
+                        <option value=" " selected="selected">SELECT MEDICAL COUNCIL</option>
+                        @foreach ($medicalcouncils as $medicalcouncil)
+                        <option value="{{$medicalcouncil->id}}" >{{$medicalcouncil->name}}</option>
+                        @endforeach
+                    </select>
+
+                    @if ($errors->has('medicalcouncil'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('medicalcouncil') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -172,26 +191,39 @@
   $("#gp").click(function(){
         $("#speciality").attr("disabled",false);
         $("#speciality").val("22");
+         $('#medicalcouncil').attr("disabled",false);
+        $('#medicalcouncil').val(" ");
     });
       $("#ayush").click(function(){
         $("#speciality").attr("disabled",false);
         $("#speciality").val("22");
+         $('#medicalcouncil').attr("disabled",false);
+        $('#medicalcouncil').val(" ");
     });
     $("#doc").click(function(){
         $("#speciality").attr("disabled",false);
         $("#speciality").val("22");
+        $('#medicalcouncil').attr("disabled",false);
+        $('#medicalcouncil').val(" ");
+        //$("#medicalcouncil option[value='1']").remove();
     });
     $("#jrdoc").click(function(){
         $("#speciality").attr("disabled",false);
         $("#speciality").val("22");
+         $('#medicalcouncil').attr("disabled",false);
+        $('#medicalcouncil').val(" ");
     });
       $("#others").click(function(){
         $("#speciality").attr("disabled",false);
         $("#speciality").val("22");
+         $('#medicalcouncil').attr("disabled",false);
+        $('#medicalcouncil').val(" ");
     });
     $("#rep").click(function(){
         $("#speciality").attr("disabled",true);
         $("#speciality").val("73");
+        $('#medicalcouncil').attr("disabled",true);
+        $('#medicalcouncil').val("1");
     });
 </script>
 @endsection

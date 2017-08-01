@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone','pan','speciality_id','doctype'
+        'name', 'email', 'password','phone','pan','speciality_id','doctype','medicalcouncil_id'
     ];
 
     /**
@@ -72,6 +72,10 @@ class User extends Authenticatable
 
    public function slots(){
         return $this->hasMany('App\Slot');
+   }
+
+   public function medicalcouncil(){
+        return $this->belongsTo('App\Medicalcouncil');
    }
 
 }

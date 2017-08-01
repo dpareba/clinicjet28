@@ -13,6 +13,7 @@ use Illuminate\Auth\Events\Registered; //Added
 use Mail; //Added
 use App\Mail\ConfirmationEmail; //Added
 use App\Speciality;//added
+use App\Medicalcouncil;
 
 class RegisterController extends Controller
 {
@@ -50,7 +51,8 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $specialities = Speciality::all();
-        return view('auth.register')->withSpecialities($specialities);
+        $medicalcouncils = Medicalcouncil::all();
+        return view('auth.register')->withSpecialities($specialities)->withMedicalcouncils($medicalcouncils);
     }
     /**
      * Get a validator for an incoming registration request.
@@ -80,11 +82,13 @@ class RegisterController extends Controller
             'phone' => 'required|min:10|max:10|unique:users,phone',
             'pan' => 'required|min:10|max:10|unique:users,pan',
             'doctype' => 'required',
-            'speciality' => 'required'
+            'speciality' => 'required',
+            'medicalcouncil' => 'required'
             ],[
             'pan.required' => 'PAN Number is required',
             'pan.unique'=>'A User with this PAN Number already exists!',
-            'phone.unique'=>'User with this phone number already exists'
+            'phone.unique'=>'User with this phone number already exists',
+            'medicalcouncil.required'=>'The Medical Council name is required'
             ]);
     }
 
@@ -108,9 +112,11 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'pan' => Str::upper($data['pan']),
             'speciality_id' => "73",
-            'doctype' => $data['doctype'] 
+            'doctype' => $data['doctype'],
+            'medicalcouncil_id'=>"1"
             ]);
         }else{
+            //dd($data);
             return User::create([
             'name' => Str::upper($data['name']),
             'email' => $data['email'],
@@ -118,7 +124,9 @@ class RegisterController extends Controller
             'phone' => $data['phone'],
             'pan' => Str::upper($data['pan']),
             'speciality_id' => $data['speciality'],
-            'doctype' => $data['doctype'] 
+            'doctype' => $data['doctype'] ,
+            'medicalcouncil_id'=>$data['medicalcouncil']
+
             ]);
         }
         
