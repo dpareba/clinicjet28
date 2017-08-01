@@ -4,7 +4,7 @@
       @include('partials._head')
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-collapse sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 

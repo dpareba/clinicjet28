@@ -36,7 +36,7 @@
                             <div class="col-md-8 col-md-offset-4">
                             <label class="radio-inline"><input type="radio" name="doctype" value="DOCTOR" checked="" id="doc">DOCTOR</label>
                            <label class="radio-inline"><input type="radio" name="doctype" value="RECEPTIONIST" id="rep">RECEPTIONIST</label>
-                             <label class="radio-inline"><input type="radio" name="doctype" value="JUNIOR DOCTOR" id="jrdoc">OTHERS</label>
+                            {{--  <label class="radio-inline"><input type="radio" name="doctype" value="JUNIOR DOCTOR" id="jrdoc">OTHERS</label> --}}
                              @if ($errors->has('name'))
                              <span class="help-block">
                                 <strong>{{ $errors->first('name') }}</strong>
