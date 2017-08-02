@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','phone','pan','speciality_id','doctype','medicalcouncil_id'
+        'name', 'email', 'password','phone','pan','speciality_id','doctype','medicalcouncil_id','registrationyear_id'
     ];
 
     /**
@@ -76,6 +76,10 @@ class User extends Authenticatable
 
    public function medicalcouncil(){
         return $this->belongsTo('App\Medicalcouncil');
+   }
+
+    public function registrationyear(){
+        return $this->belongsTo('App\Registrationyear');
    }
 
 }

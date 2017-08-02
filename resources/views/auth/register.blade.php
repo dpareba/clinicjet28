@@ -64,6 +64,7 @@
                 </div>
             </div>
 
+            <div id="medico">
             <div class="form-group{{ $errors->has('medicalcouncil') ? ' has-error' : '' }}">
                 <label for="medicalcouncil" class="col-md-4 control-label">Select Medical Council</label>
 
@@ -82,6 +83,26 @@
                     @endif
                 </div>
             </div>
+
+             <div class="form-group{{ $errors->has('registrationyear') ? ' has-error' : '' }}">
+                <label for="registrationyear" class="col-md-4 control-label">Select Registration Year</label>
+
+                <div class="col-md-6">
+                    <select required="" data-parsley-required-message="*Kindly Select the Registration Year" name="registrationyear" id="registrationyear" class="js-example-basic-single form-control">
+                        <option value=" " selected="selected">SELECT REGISTRATION YEAR</option>
+                        @foreach ($registrationyears as $registrationyear)
+                        <option value="{{$registrationyear->id}}" >{{$registrationyear->year}}</option>
+                        @endforeach
+                    </select>
+
+                    @if ($errors->has('registrationyear'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('registrationyear') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
+            </div>{{-- .medico --}}
 
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" class="col-md-4 control-label">E-Mail Address</label>
@@ -206,6 +227,10 @@
         $('#medicalcouncil').attr("disabled",false);
         $('#medicalcouncil').val(" ");
         //$("#medicalcouncil option[value='1']").remove();
+        $('#medico').show();
+        $('#registrationyear').attr("disabled",false);
+        $('#registrationyear').val(" ");
+        $('#medico').show();
     });
     $("#jrdoc").click(function(){
         $("#speciality").attr("disabled",false);
@@ -223,7 +248,10 @@
         $("#speciality").attr("disabled",true);
         $("#speciality").val("73");
         $('#medicalcouncil').attr("disabled",true);
-        $('#medicalcouncil').val("1");
+        $('#medicalcouncil').val("2");
+        $('#registrationyear').attr("disabled",true);
+        $('#registrationyear').val("2");
+        $('#medico').hide();
     });
 </script>
 @endsection

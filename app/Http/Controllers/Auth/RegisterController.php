@@ -14,6 +14,7 @@ use Mail; //Added
 use App\Mail\ConfirmationEmail; //Added
 use App\Speciality;//added
 use App\Medicalcouncil;
+use App\Registrationyear;
 
 class RegisterController extends Controller
 {
@@ -51,8 +52,9 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         $specialities = Speciality::all();
-        $medicalcouncils = Medicalcouncil::all();
-        return view('auth.register')->withSpecialities($specialities)->withMedicalcouncils($medicalcouncils);
+        $medicalcouncils = Medicalcouncil::where('id','!=','1')->get();
+        $registrationyears = Registrationyear::where('year','!=','1900')->orderBy('year','desc')->get();
+        return view('auth.register')->withSpecialities($specialities)->withMedicalcouncils($medicalcouncils)->withRegistrationyears($registrationyears);
     }
     /**
      * Get a validator for an incoming registration request.
@@ -83,12 +85,14 @@ class RegisterController extends Controller
             'pan' => 'required|min:10|max:10|unique:users,pan',
             'doctype' => 'required',
             'speciality' => 'required',
-            'medicalcouncil' => 'required'
+            'medicalcouncil' => 'required',
+            'registrationyear' => 'required'
             ],[
             'pan.required' => 'PAN Number is required',
             'pan.unique'=>'A User with this PAN Number already exists!',
             'phone.unique'=>'User with this phone number already exists',
-            'medicalcouncil.required'=>'The Medical Council name is required'
+            'medicalcouncil.required'=>'The Medical Council name is required',
+            'registrationyear.required'=>'The Registration Year is required'
             ]);
     }
 
@@ -113,7 +117,8 @@ class RegisterController extends Controller
             'pan' => Str::upper($data['pan']),
             'speciality_id' => "73",
             'doctype' => $data['doctype'],
-            'medicalcouncil_id'=>"1"
+            'medicalcouncil_id'=>"1",
+            'registrationyear_id'=>"1"
             ]);
         }else{
             //dd($data);
@@ -125,8 +130,8 @@ class RegisterController extends Controller
             'pan' => Str::upper($data['pan']),
             'speciality_id' => $data['speciality'],
             'doctype' => $data['doctype'] ,
-            'medicalcouncil_id'=>$data['medicalcouncil']
-
+            'medicalcouncil_id'=>$data['medicalcouncil'],
+            'registrationyear_id'=>$data['registrationyear']
             ]);
         }
         
