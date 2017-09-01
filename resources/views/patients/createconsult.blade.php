@@ -386,7 +386,7 @@ Add Consultation for Patient Visit
 							{{-- .row --}}
 
 							<div class="row">
-								<div class="col-md-4 col-xs-12">
+								<div class="col-md-2 col-xs-12">
 									<div class="form-group {{ $errors->has('weight')?'has-error':''}}">
 										<div style="text-align: center;">
 											<label class="control-label" for="weight">Weight (in kgs)</label>
@@ -396,12 +396,32 @@ Add Consultation for Patient Visit
 										<span class="help-block">{{$errors->first('weight')}}</span>
 									</div>
 								</div>
-								<div class="col-md-4 col-xs-12">
+								<div class="col-md-2 col-xs-12">
+									<div class="form-group {{ $errors->has('htfeet')?'has-error':''}}">
+										<div style="text-align: center;">
+											<label class="control-label" for="htfeet">Height (in feet)</label>
+										</div>
+										<input  data-parsley-type="digits" value="{{old('htfeet')}}"  class="form-control" id="htfeet" name="htfeet" placeholder="Height in feet" minlength="1" maxlength="1" style="text-align: center;" >
+										
+										<span class="help-block">{{$errors->first('htfeet')}}</span>
+									</div>
+								</div>
+								<div class="col-md-2 col-xs-12">
+									<div class="form-group {{ $errors->has('htinches')?'has-error':''}}">
+										<div style="text-align: center;">
+											<label class="control-label" for="htinches">Height (in inches)</label>
+										</div>
+										<input  data-parsley-type="digits" value="{{old('htinches')}}"  class="form-control" id="htinches" name="htinches" placeholder="Height in inches" minlength="1" maxlength="2" style="text-align: center;" >
+										
+										<span class="help-block">{{$errors->first('htinches')}}</span>
+									</div>
+								</div>
+								<div class="col-md-2 col-xs-12">
 									<div class="form-group {{ $errors->has('height')?'has-error':''}}">
 										<div style="text-align: center;">
 											<label class="control-label" for="height">Height (in cms)</label>
 										</div>
-										<input  data-parsley-type="digits" value="{{old('height')}}"  class="form-control" id="height" name="height" placeholder="Height in centimeters" minlength="3" maxlength="3" style="text-align: center;" >
+										<input readonly="" data-parsley-type="digits" value="{{old('height')}}"  class="form-control" id="height" name="height" placeholder="Height in centimeters" minlength="3" maxlength="3" style="text-align: center;" >
 										
 										<span class="help-block">{{$errors->first('height')}}</span>
 									</div>
@@ -411,7 +431,7 @@ Add Consultation for Patient Visit
 										<div style="text-align: center;">
 											<label class="control-label" for="bmi">BMI</label>
 										</div>
-										<input readonly=""  data-parsley-pattern="^[0-9]{2}\.[0-9]{1}$" value="{{old('bmi')}}"  class="form-control" id="bmi" name="bmi" placeholder="bmi in centimeters"  style="text-align: center;" >
+										<input readonly=""  data-parsley-pattern="^[0-9]{2}\.[0-9]{1}$" value="{{old('bmi')}}"  class="form-control" id="bmi" name="bmi" placeholder="BMI"  style="text-align: center;" >
 										
 										<span class="help-block">{{$errors->first('bmi')}}</span>
 									</div>
@@ -1829,8 +1849,52 @@ $(function(){
 
 $(function(){
 	$('#weight').val('');
+	$('#htfeet').val('');
+	$('#htinches').val('');
 	$('#height').val('');
 	$('#bmi').val('');
+});
+
+$('#htfeet').on('input',function(){
+	$hfeet = $('#htfeet').val();
+	$hinch = $('#htinches').val();
+	$tocms = (($hfeet*30.48)+($hinch*0.0254)*100);
+	$tocms = parseInt($tocms);
+	$('#height').val($tocms);
+	//alert($hfeet + ' ' + $hinch);
+	if(($('#weight').val() == '')||($('#height').val() == '')){
+		$('#bmi').val('');
+	}else{
+		$w = $('#weight').val();
+		$h = $('#height').val()/100;
+		$h = $h * $h;
+		
+		$bmi = $w/$h;
+		$bmidec = $bmi.toFixed(1);
+
+		$('#bmi').val($bmidec);
+	}
+});
+
+$('#htinches').on('input',function(){
+	$hfeet = $('#htfeet').val();
+	$hinch = $('#htinches').val();
+	$tocms = (($hfeet*30.48)+($hinch*0.0254)*100);
+	$tocms = parseInt($tocms);
+	$('#height').val($tocms);
+	//alert($hfeet + ' ' + $hinch);
+	if(($('#weight').val() == '')||($('#height').val() == '')){
+		$('#bmi').val('');
+	}else{
+		$w = $('#weight').val();
+		$h = $('#height').val()/100;
+		$h = $h * $h;
+		
+		$bmi = $w/$h;
+		$bmidec = $bmi.toFixed(1);
+
+		$('#bmi').val($bmidec);
+	}
 });
 
 $('#weight').on('input',function(){

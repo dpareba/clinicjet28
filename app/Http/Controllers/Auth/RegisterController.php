@@ -86,13 +86,15 @@ class RegisterController extends Controller
             'doctype' => 'required',
             'speciality' => 'required',
             'medicalcouncil' => 'required',
-            'registrationyear' => 'required'
+            'registrationyear' => 'required',
+            'registrationnumber'=>'required'
             ],[
             'pan.required' => 'PAN Number is required',
             'pan.unique'=>'A User with this PAN Number already exists!',
             'phone.unique'=>'User with this phone number already exists',
             'medicalcouncil.required'=>'The Medical Council name is required',
-            'registrationyear.required'=>'The Registration Year is required'
+            'registrationyear.required'=>'The Registration Year is required',
+            'registrationnumber.required'=>'Please provide Registration Number'
             ]);
     }
 
@@ -131,7 +133,8 @@ class RegisterController extends Controller
             'speciality_id' => $data['speciality'],
             'doctype' => $data['doctype'] ,
             'medicalcouncil_id'=>$data['medicalcouncil'],
-            'registrationyear_id'=>$data['registrationyear']
+            'registrationyear_id'=>$data['registrationyear'],
+            'registrationnumber'=>Str::upper($data['registrationnumber'])
             ]);
         }
         

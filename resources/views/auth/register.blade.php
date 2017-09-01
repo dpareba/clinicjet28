@@ -102,6 +102,20 @@
                     @endif
                 </div>
             </div>
+
+            <div class="form-group{{ $errors->has('registrationnumber') ? ' has-error' : '' }}">
+                <label for="registrationnumber" class="col-md-4 control-label">Registration Number</label>
+
+                <div class="col-md-6">
+                    <input id="registrationnumber" type="text" style="text-transform: uppercase;" class="form-control" name="registrationnumber" value="{{ old('registrationnumber') }}"   placeholder="REGISTRATION NUMBER">
+
+                    @if ($errors->has('registrationnumber'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('registrationnumber') }}</strong>
+                    </span>
+                    @endif
+                </div>
+            </div>
             </div>{{-- .medico --}}
 
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
